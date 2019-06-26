@@ -1,13 +1,45 @@
-import React from 'react';
+import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import './components/QuizzBar'
+import './components/FlashCard'
+import QuizzBar from './components/QuizzBar';
+import { faFlask } from '@fortawesome/free-solid-svg-icons';
+import FlashCard from './components/FlashCard';
 
-function App() {
-  return (
-    <div className="App">
-      <h1>Sanity Check</h1>
-    </div>
-  );
+class App extends Component {
+  constructor (){
+    super();
+    this.state = {
+      cardStyle : "Random",
+      ready:false,
+    }
+  }
+
+  userChoice = (cardStyleChoice) =>
+  {
+    this.setState({
+      cardStyle : cardStyleChoice,
+      ready : false
+    })
+  }
+
+  nowReady = () => {
+    this.setState({
+      ready:true
+    })
+  }
+  render(){
+    console.log(this.state.cardStyle);
+    return (
+      <div className="App align-items-center d-flex">
+        <div className="container">
+        <QuizzBar userChoice={this.userChoice}/>
+        <FlashCard cardStyle={this.state.cardStyle} nowReady={this.nowReady} ready={this.state.ready}/>
+        </div> 
+      </div>
+    );
+  } 
 }
 
 export default App;
